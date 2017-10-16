@@ -1,0 +1,64 @@
+<template>
+  <div>
+      <ul class="cq-item-list">
+        <router-link class="clearFix" :to="'/Detail/'+item.artId" tag="li" v-for="item in articleList">
+          <div class="cq-leftImg">
+            <img src="../assets/backgroundImg.jpg" alt="item.artTitle"/>
+          </div>
+          <div class="cq-right-content">
+            <h4 class="item-title">{{item.artTitle}}</h4>
+            <div class="item-abstract">{{item.artAbstract}}</div>
+            <div class="item-meta">
+              <span><i class="iconfont icon-shijian1"></i>{{item.artCdate}}</span><span><i class="iconfont icon-yuedu"></i>10000</span><span><i class="iconfont icon-xiaoxi"></i>10000</span><span><i class="iconfont icon-fenlei"></i>{{item.artType}}</span>
+            </div>
+          </div>
+        </router-link>
+      </ul>
+  </div>
+</template>
+
+<script>
+export default {
+  data () {
+    return {
+      articleList:[]
+    }
+  },
+  created () {
+    this.$http.get('/api/getArtticleAll').then((res) => {
+      // success
+      console.log(res);
+      this.articleList = res.data;
+    }, (error) => {
+      // error
+      console.log(error)
+    });
+  },
+}
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+
+  img {height: 100%;width: 100%;}
+  .cq-item-list li {padding: 10px;background: rgba(255,255,255,0.6);border-radius: 5px;margin-bottom: 15px;cursor: pointer;transition: all 0.4s ease-in-out 0s;}
+  .cq-item-list li:hover {background: rgba(255,255,255,0.8);}
+  .cq-leftImg, .cq-right-content {float: left;}
+  .cq-leftImg {
+    height: 119px;
+    width: 175px;
+  }
+  .cq-right-content {padding-left: 10px;width: 64%;}
+  .item-title {
+    color: #444;
+    font-size: 16px;
+    padding: 0 0 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .item-abstract {height: 76px;margin-bottom: 5px;color: #666;font-size: 13px;}
+  .item-meta {font-size: 12px;color: #888;}
+  .item-meta i {font-size: 12px;margin-right: 4px;}
+  .item-meta span {margin-right: 15px;}
+</style>
