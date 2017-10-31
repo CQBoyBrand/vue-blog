@@ -26,14 +26,13 @@ export default {
   components: {topNav, rightSide, Foot},
   data () {
     return {
-
+      transitionName: 'component-fade'
     }
   },
   watch: {
     '$route' (to, from) {
       const toDepth = to.path.split('/').length;
       const fromDepth = from.path.split('/').length;
-      console.log(to.path+"-------"+from.path)
     }
   }
 }
@@ -47,7 +46,7 @@ export default {
     font-size: 14px;
   }
   html, body {height: 100%;}
-  body {background-color: #dbdbdb;}
+  body {background-color: #f8f8f8;}
   * {
     margin: 0;
     padding: 0;

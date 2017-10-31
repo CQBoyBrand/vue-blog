@@ -6,12 +6,16 @@ import code from '../pages/code.vue';
 import note from '../pages/note.vue';
 import about from '../pages/about.vue';
 import detail from '../pages/detail.vue';
+import tag from '../pages/tag.vue';
 
 Vue.use(Router);
 
 export default new Router({
   mode: 'history',
   linkActiveClass: 'currentTab',
+  scrollBehavior (to, from, savedPosition) {
+    return { x: 0, y: 0 }
+  },//路由跳转滚动到顶部
   routes: [
     {
       path: '/',
@@ -41,6 +45,11 @@ export default new Router({
       path: '/Detail/:id',
       name: 'detail',
       component: detail
+    },
+    {
+      path: '/tag/:id',
+      name: 'tag',
+      component: tag
     }
   ]
 })

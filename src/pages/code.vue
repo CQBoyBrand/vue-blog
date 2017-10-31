@@ -1,41 +1,39 @@
 <template>
   <div>
     <ul class="cq-item-list">
-      <li class="clearFix">
+      <router-link class="clearFix" :to="'/Detail/'+item.artId" :key="item.artId" tag="li" v-for="item in articleList">
         <div class="cq-leftImg">
-          <img src="../assets/backgroundImg.jpg" alt="标题"/>
+          <img src="../assets/backgroundImg.jpg" alt="item.artTitle"/>
         </div>
         <div class="cq-right-content">
-          <h4 class="item-title">这是标题这是标题这是标题这是标题这是标题这是标题这是标题这是标题这是标题这是标题这是标题</h4>
-          <div class="item-abstract">这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要</div>
+          <h4 class="item-title">{{item.artTitle}}</h4>
+          <div class="item-abstract">{{item.artAbstract}}</div>
           <div class="item-meta">
-            <span><i class="iconfont icon-shijian1"></i>2017-07-07 12:12:12</span><span><i class="iconfont icon-yuedu"></i>10000</span><span><i class="iconfont icon-xiaoxi"></i>10000</span><span><i class="iconfont icon-fenlei"></i>CODE</span>
+            <span><i class="iconfont icon-shijian1"></i>{{item.artCdate}}</span><span><i class="iconfont icon-yuedu"></i>{{item.readNum}}</span><span><i class="iconfont icon-xiaoxi"></i>0</span><span><i class="iconfont icon-fenlei"></i>{{item.artType}}</span>
           </div>
         </div>
-      </li>
-      <li class="clearFix">
-        <div class="cq-leftImg">
-          <img src="" alt="标题"/>
-        </div>
-        <div class="cq-right-content">
-          <h4 class="item-title">这是CODE标题这是标题这是标题这是标题这是标题这是标题这是标题这是标题这是标题这是标题这是标题</h4>
-          <div class="item-abstract">这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要这是摘要</div>
-          <div class="item-meta">
-            <span><i class="iconfont icon-shijian1"></i>2017-07-07 12:12:12</span><span><i class="iconfont icon-yuedu"></i>10000</span><span><i class="iconfont icon-xiaoxi"></i>10000</span><span><i class="iconfont icon-fenlei"></i>CODE</span>
-          </div>
-        </div>
-      </li>
+      </router-link>
     </ul>
   </div>
 </template>
 
 <script>
+  import {getArticleList} from '../api/api'
   export default {
     data () {
       return {
-
+        articleList:[]
       }
-    }
+    },
+    created () {
+      this.$http.post(getArticleList,{artType: 'Code'}).then((res) => {
+        // success
+        this.articleList = res.data.artList;
+      }, (error) => {
+        // error
+        console.log(error)
+      });
+    },
   }
 </script>
 
@@ -43,7 +41,7 @@
 <style scoped>
 
   img {height: 100%;width: 100%;}
-  .cq-item-list li {padding: 10px;background: #fff;border-radius: 5px;margin-bottom: 15px;}
+  .cq-item-list li {padding: 10px;background: rgba(255,255,255,1);border-radius: 5px;margin-bottom: 15px;cursor: pointer;transition: all 0.4s ease-in-out 0s;}
   .cq-leftImg, .cq-right-content {float: left;}
   .cq-leftImg {
     height: 119px;
@@ -51,15 +49,15 @@
   }
   .cq-right-content {padding-left: 10px;width: 64%;}
   .item-title {
-    color: #555;
+    color: #444;
     font-size: 16px;
     padding: 0 0 5px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
-  .item-abstract {height: 76px;margin-bottom: 5px;color: #333;font-size: 13px;}
-  .item-meta {font-size: 12px;color: #666;}
+  .item-abstract {height: 76px;margin-bottom: 5px;color: #666;font-size: 13px;}
+  .item-meta {font-size: 12px;color: #888;}
   .item-meta i {font-size: 12px;margin-right: 4px;}
   .item-meta span {margin-right: 15px;}
 </style>

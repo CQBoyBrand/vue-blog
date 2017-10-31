@@ -37,11 +37,12 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   .cq-header {
-    background: rgb(234, 234, 234);
+    background: #f8f8f8;
     height: 60px;
     position: fixed;
     top: 0;
     width: 100%;
+    border-bottom: 2px solid #ccc;
   }
   .cq-header .cq-logo{
     float: left;

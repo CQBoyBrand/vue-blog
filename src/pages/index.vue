@@ -1,7 +1,7 @@
 <template>
   <div>
       <ul class="cq-item-list">
-        <router-link class="clearFix" :to="'/Detail/'+item.artId" tag="li" v-for="item in articleList">
+        <router-link class="clearFix" :to="'/Detail/'+item.artId" :key="item.artId" tag="li" v-for="item in articleList">
           <div class="cq-leftImg">
             <img src="../assets/backgroundImg.jpg" alt="item.artTitle"/>
           </div>
@@ -9,7 +9,7 @@
             <h4 class="item-title">{{item.artTitle}}</h4>
             <div class="item-abstract">{{item.artAbstract}}</div>
             <div class="item-meta">
-              <span><i class="iconfont icon-shijian1"></i>{{item.artCdate}}</span><span><i class="iconfont icon-yuedu"></i>10000</span><span><i class="iconfont icon-xiaoxi"></i>10000</span><span><i class="iconfont icon-fenlei"></i>{{item.artType}}</span>
+              <span><i class="iconfont icon-shijian1"></i>{{item.artCdate}}</span><span><i class="iconfont icon-yuedu"></i>{{item.readNum}}</span><span><i class="iconfont icon-xiaoxi"></i>0</span><span><i class="iconfont icon-fenlei"></i>{{item.artType}}</span>
             </div>
           </div>
         </router-link>
@@ -18,6 +18,7 @@
 </template>
 
 <script>
+  import {getArticleList} from '../api/api'
 export default {
   data () {
     return {
@@ -25,10 +26,9 @@ export default {
     }
   },
   created () {
-    this.$http.get('/api/getArtticleAll').then((res) => {
+    this.$http.post(getArticleList).then((res) => {
       // success
-      console.log(res);
-      this.articleList = res.data;
+      this.articleList = res.data.artList;
     }, (error) => {
       // error
       console.log(error)
@@ -41,8 +41,7 @@ export default {
 <style scoped>
 
   img {height: 100%;width: 100%;}
-  .cq-item-list li {padding: 10px;background: rgba(255,255,255,0.6);border-radius: 5px;margin-bottom: 15px;cursor: pointer;transition: all 0.4s ease-in-out 0s;}
-  .cq-item-list li:hover {background: rgba(255,255,255,0.8);}
+  .cq-item-list li {padding: 10px;background: #fff;border-radius: 5px;margin-bottom: 15px;cursor: pointer;transition: all 0.4s ease-in-out 0s;}
   .cq-leftImg, .cq-right-content {float: left;}
   .cq-leftImg {
     height: 119px;
