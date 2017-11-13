@@ -28,7 +28,7 @@
         articleList:[],
         currentPage: 1,
         pageNo: 1,
-        pageRow:1
+        pageRow:7
       }
     },
     methods:{

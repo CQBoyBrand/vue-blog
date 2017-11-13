@@ -28,16 +28,15 @@ export default {
       articleList:[],
       currentPage: 1,
       pageNo: 1,
-      pageRow:1
+      pageRow:7
     }
   },
   methods:{
     getList(){
       this.$http.post(getArticleList,{pageNum: this.currentPage,pageRow: this.pageRow}).then((res) => {
         // success
-        console.log(res)
         this.articleList = res.data.artList;
-        this.pageNo = Math.ceil(res.data.total / this.pageRow)
+        this.pageNo = Math.ceil(res.data.total / this.pageRow);
       }, (error) => {
         // error
         console.log(error)
