@@ -14,26 +14,44 @@
         </div>
       </router-link>
     </ul>
+    <Pages :pageNo="pageNo" :current="currentPage" @currentPages="currentPages"></Pages>
   </div>
 </template>
 
 <script>
   import {getArticleList} from '../api/api'
+  import Pages from './paginations'
   export default {
+    components: {Pages},
     data () {
       return {
-        articleList:[]
+        articleList:[],
+        currentPage: 1,
+        pageNo: 1,
+        pageRow:1
+      }
+    },
+    methods:{
+      getList(){
+        this.$http.post(getArticleList,{artType: 'Code',pageNum: this.currentPage,pageRow: this.pageRow}).then((res) => {
+          // success
+          this.articleList = res.data.artList;
+          this.pageNo = Math.ceil(res.data.total / this.pageRow);
+        }, (error) => {
+          // error
+          console.log(error)
+        });
+      },
+      currentPages(data){
+        this.currentPage= data;
       }
     },
     created () {
-      this.$http.post(getArticleList,{artType: 'Code'}).then((res) => {
-        // success
-        this.articleList = res.data.artList;
-      }, (error) => {
-        // error
-        console.log(error)
-      });
+      this.getList();
     },
+    watch:{
+      currentPage: 'getList'
+    }
   }
 </script>
 

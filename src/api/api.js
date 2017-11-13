@@ -1,7 +1,7 @@
 /**
  * Created By brand On 2017/10/25
  */
-const _URL="http://120.78.152.246:3100";
+const _URL="http://localhost:3100";
 
 module.exports= {
 

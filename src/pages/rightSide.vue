@@ -38,7 +38,6 @@ export default {
     getHotArtList(){ //获取人们文章
       this.$http.get(getHotArtList).then((res) => {
         // success
-        console.log("res="+JSON.stringify(res.data.hotArtList))
         this.hotArtList = res.data.hotArtList;
       }, (error) => {
         // error
