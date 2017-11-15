@@ -1,6 +1,7 @@
 <template>
   <div class="cq-footer">
       <i>Designed By 重庆崽儿Brand</i>
+      <a href="http://www.miitbeian.gov.cn/">渝ICP备17014610号</a>
   </div>
 </template>
 
@@ -17,9 +18,11 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
   .cq-footer {
-    height: 60px;
+    background: #eee;
     text-align: center;
-    line-height: 60px;
+    padding: 20px 0;
   }
-
+  .cq-footer>i{display: block;padding-bottom: 10px;}
+  .cq-footer a{color: #000;}
+  .cq-footer a:hover{text-decoration:underline;}
 </style>

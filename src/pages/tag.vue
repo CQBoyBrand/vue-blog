@@ -17,36 +17,54 @@
         </router-link>
         </transition-group>
       </ul>
+      <Pages v-if="pageShow" :pageNo="pageNo" :current="currentPage" @currentPages="currentPages"></Pages>
     </div>
 
 </template>
 
 <script>
   import {getArtListByTagId} from '../api/api'
+  import Pages from './paginations'
     export default {
+      components: {Pages},
       data() {
           return {
             articleList: [],
-            tagName:''
+            tagName:'',
+            currentPage: 1,
+            pageNo: 1,
+            pageRow:1,
+            pageShow:false
           }
       },
       methods: {
           getArtList(){
-            this.$http.post(getArtListByTagId,{tagId: this.$route.params.id }).then((res) => {
+            this.$http.post(getArtListByTagId,{tagId: this.$route.params.id, pageNum: this.currentPage, pageRow: this.pageRow }).then((res) => {
               // success
               this.articleList = res.data.article;
               this.tagName = res.data.article[0].tagName;
+              this.pageNo = Math.ceil(res.data.total / this.pageRow);
+              this.pageShow = true
             }, (error) => {
               // error
               console.log(error)
             });
-          }
+          },
+        currentPages(data){
+          this.currentPage = data;
+        },
+        resetPage(){
+          this.pageShow = false;
+          this.currentPage = 1;
+          this.getArtList();
+        }
       },
      created(){
-       this.getArtList()
+       this.getArtList();
      },
       watch:{
-        '$route':'getArtList'
+        '$route':'resetPage',
+        currentPage: 'getArtList',
       }
     }
 </script>
