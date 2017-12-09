@@ -3,7 +3,7 @@
       <ul class="cq-item-list">
         <router-link class="clearFix" :to="'/Detail/'+item.artId" :key="item.artId" tag="li" v-for="item in articleList">
           <div class="cq-leftImg">
-            <img src="../assets/backgroundImg.jpg" alt="item.artTitle"/>
+            <img :src="item.artThumb" alt="item.artTitle"/>
           </div>
           <div class="cq-right-content">
             <h4 class="item-title">{{item.artTitle}}</h4>
@@ -35,6 +35,7 @@ export default {
     getList(){
       this.$http.post(getArticleList,{pageNum: this.currentPage,pageRow: this.pageRow}).then((res) => {
         // success
+        console.log(res)
         this.articleList = res.data.artList;
         this.pageNo = Math.ceil(res.data.total / this.pageRow);
       }, (error) => {

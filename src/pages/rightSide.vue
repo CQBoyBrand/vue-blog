@@ -17,7 +17,9 @@
     <div class="cq-guidang">
       <h4 class="cq-guidang-title"><i class="iconfont icon-guidang"></i>归档</h4>
       <ul class="cq-time-list clearBoth">
-        <li>此功能待开发~~~</li>
+        <li  v-for="item in dateList">
+          <router-link :to="'/archive/'+item.Archive" :key="item.Archive"><i class="iconfont icon-weibiaoti546"></i>{{item.Archive}}({{item.Num}})</router-link>
+        </li>
       </ul>
     </div>
 
@@ -25,12 +27,13 @@
 </template>
 
 <script>
-  import {getTags, getHotArtList} from '../api/api'
+  import {getTags, getHotArtList, getArticleDate} from '../api/api'
 export default {
   data () {
     return {
       tagList: [],
-      hotArtList:[]
+      hotArtList:[],
+      dateList:[]
     }
   },
   methods: {
@@ -43,10 +46,19 @@ export default {
         console.log(error)
       });
     },
-    getHotArtList(){ //获取人们文章
+    getHotArtList(){ //获取热门文章
       this.$http.get(getHotArtList).then((res) => {
         // success
         this.hotArtList = res.data.hotArtList;
+      }, (error) => {
+        // error
+        console.log(error)
+      });
+    },
+    getArticleDate(){ //通过日期获取文章
+      this.$http.get(getArticleDate).then((res) => {
+        // success
+        this.dateList= res.data;
       }, (error) => {
         // error
         console.log(error)
@@ -55,7 +67,8 @@ export default {
   },
   created(){
     this.getTags(),
-    this. getHotArtList()
+    this. getHotArtList(),
+    this.getArticleDate()
   }
 }
 </script>
@@ -75,6 +88,8 @@ export default {
   .cq-tags a {background: rgba(135,135,135,0.3);padding: 5px 15px;margin:0 8px 8px 0;border-radius: 5px;cursor: pointer;display: inline-block;color: #444;transition: all 0.4s ease-in-out 0s}
   .cq-tags a:hover {background: rgba(135,135,135,0.6);}
 
-  .cq-time-list li{float: left;width: 50%;}
+  .cq-time-list li{float: left;width: 50%;text-align: center;cursor: pointer;padding-bottom: 8px;}
+  .cq-time-list li a {color: #444;}
+  .cq-time-list li a:hover {color: #074295;font-weight: bold;}
   .clearBoth:after{content: '.';height: 0;overflow: hidden;display: block;clear: both;}
 </style>

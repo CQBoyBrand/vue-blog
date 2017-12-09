@@ -1,6 +1,6 @@
 <template>
     <div>
-      <div class="mainTag"><i class="iconfont icon-tag1"></i>{{tagName}}</div>
+      <div class="mainTag"><i class="iconfont icon-riqi1"></i>{{this.$route.params.id}}</div>
       <ul class="cq-item-list">
         <transition-group  name="component-fade" mode="out-in">
         <router-link class="clearFix" :to="'/Detail/'+item.artId" :key="item.artId" tag="li" v-for="item in articleList">
@@ -23,7 +23,7 @@
 </template>
 
 <script>
-  import {getArtListByTagId} from '../api/api'
+  import {getArticleListByDate} from '../api/api'
   import Pages from './paginations'
     export default {
       components: {Pages},
@@ -39,7 +39,7 @@
       },
       methods: {
           getArtList(){
-            this.$http.post(getArtListByTagId,{tagId: this.$route.params.id, pageNum: this.currentPage, pageRow: this.pageRow }).then((res) => {
+            this.$http.post(getArticleListByDate,{artCdate: this.$route.params.id, pageNum: this.currentPage, pageRow: this.pageRow }).then((res) => {
               // success
               this.articleList = res.data.article;
               this.tagName = res.data.article[0].tagName;

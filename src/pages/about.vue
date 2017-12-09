@@ -2,23 +2,34 @@
   <div>
     <div class="aboutme">
       <h2>关于我</h2>
-      <div class="content">你好吗你好吗你好吗你好吗你好吗你好吗你好吗你好吗你好吗你好吗你好吗你好吗你好吗你好吗你好吗你好吗你好吗你好吗你好吗你好吗你好吗你好吗你好吗你好吗你好吗你好吗你好吗你好吗你好吗你好吗你好吗你好吗你好吗你好吗你好吗你好吗你好吗你好吗你好吗你好吗你好吗你好吗你好吗你好吗你好吗你好吗你好吗你好吗你好吗你好吗你好吗你好吗你好吗你好吗你好吗你好吗你好吗你好吗你好吗你好吗你好吗你好吗你好吗你好吗你好吗你好吗你好吗你好吗你好吗你好吗你好吗你好吗你好吗你好吗你好吗你好吗你好吗你好吗你好吗你好吗你好吗你好吗</div>
+      <div class="content" v-html="userInfo.introduce"></div>
       <h2>联系我</h2>
       <div class="contactMe">
-          <p>邮箱：<a href="mailto:brandhuang2016@163.com">brandhuang2016@163.com</a></p>
-          <p>新浪微博：<a href="https://weibo.com/u/2843842840">重庆崽儿Brand</a></p>
-          <p>Github：<a href="https://github.com/CQBoyBrand">Brand</a></p>
+          <p>邮箱：<a :href="'mailto:'+userInfo.email" style="color: #0062cc;">{{ userInfo.email }}</a></p>
+          <p>新浪微博：<a target="_blank" :href="userInfo.weibo" style="color: #0062cc;">重庆崽儿Brand</a></p>
+          <p>Github：<a target="_blank" :href="userInfo.github" style="color: #0062cc;">Brand</a></p>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+  import {getUserInfo} from '../api/api'
   export default {
     data () {
       return {
-
+        userInfo: ''
       }
+    },
+    created(){
+      this.$http.post(getUserInfo,{userName: 'admin'}).then((res) => {
+        // success
+        console.log(res);
+        this.userInfo = res.data.userInfo[0];
+      }, (error) => {
+        // error
+        console.log(error)
+      });
     }
   }
 </script>

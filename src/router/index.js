@@ -7,6 +7,7 @@ import note from '../pages/note.vue';
 import about from '../pages/about.vue';
 import detail from '../pages/detail.vue';
 import tag from '../pages/tag.vue';
+import archive from '../pages/archive.vue';
 
 Vue.use(Router);
 
@@ -50,6 +51,11 @@ export default new Router({
       path: '/tag/:id',
       name: 'tag',
       component: tag
+    },
+    {
+      path: '/archive/:id',
+      name: 'archive',
+      component: archive
     }
   ]
 })
