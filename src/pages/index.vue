@@ -35,9 +35,12 @@ export default {
     getList(){
       this.$http.post(getArticleList,{pageNum: this.currentPage,pageRow: this.pageRow}).then((res) => {
         // success
-        console.log(res)
         this.articleList = res.data.artList;
-        this.pageNo = Math.ceil(res.data.total / this.pageRow);
+        if(res.data.total == 0){
+          this.pageNo == 1
+        }else {
+          this.pageNo = Math.ceil(res.data.total / this.pageRow);
+        }
       }, (error) => {
         // error
         console.log(error)
@@ -58,7 +61,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
+  ol, ul {list-style: none;}
   img {height: 100%;width: 100%;}
   .cq-item-list li {padding: 10px;background: #fff;border-radius: 5px;margin-bottom: 15px;cursor: pointer;transition: all 0.4s ease-in-out 0s;}
   .cq-leftImg, .cq-right-content {float: left;}

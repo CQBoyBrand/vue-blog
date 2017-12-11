@@ -5,7 +5,7 @@
         <transition-group  name="component-fade" mode="out-in">
         <router-link class="clearFix" :to="'/Detail/'+item.artId" :key="item.artId" tag="li" v-for="item in articleList">
           <div class="cq-leftImg">
-            <img src="../assets/backgroundImg.jpg" alt="item.artTitle"/>
+            <img :src="item.artThumb" alt="item.artTitle"/>
           </div>
           <div class="cq-right-content">
             <h4 class="item-title">{{item.artTitle}}</h4>
@@ -43,7 +43,11 @@
               // success
               this.articleList = res.data.article;
               this.tagName = res.data.article[0].tagName;
-              this.pageNo = Math.ceil(res.data.total / this.pageRow);
+              if(res.data.total == 0){
+                this.pageNo == 1
+              }else {
+                this.pageNo = Math.ceil(res.data.total / this.pageRow);
+              }
               this.pageShow = true
             }, (error) => {
               // error
@@ -69,7 +73,8 @@
     }
 </script>
 
-<style>
+<style scoped>
+  ol, ul {list-style: none;}
   .mainTag {background: rgba(255,255,255,1);height: 141px;text-align: center;font-size: 40px;text-transform : capitalize;line-height: 141px;font-style: italic;color: #555;margin-bottom: 15px;}
   .mainTag i{font-size: 35px;margin-right: 10px;}
   img {height: 100%;width: 100%;}

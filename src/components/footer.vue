@@ -17,6 +17,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+  ol, ul {list-style: none;}
   .cq-footer {
     background: #eee;
     text-align: center;

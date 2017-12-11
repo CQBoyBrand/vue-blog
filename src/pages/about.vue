@@ -24,7 +24,6 @@
     created(){
       this.$http.post(getUserInfo,{userName: 'admin'}).then((res) => {
         // success
-        console.log(res);
         this.userInfo = res.data.userInfo[0];
       }, (error) => {
         // error
@@ -36,6 +35,7 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+  ol, ul {list-style: none;}
 .aboutme{background: #fff;padding: 20px;}
   .aboutme h2{text-align: center;}
   .content{text-indent: 2em;font-size: 15px;line-height: 24px;padding-top: 20px;}

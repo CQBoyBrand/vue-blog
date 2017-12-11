@@ -75,11 +75,12 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+  ol, ul {list-style: none;}
   .cq-hot-article {background: rgba(255,255,255,1);border-radius: 5px;padding: 10px 0;}
   .cq-hot-title {color: #444;border-bottom: 1px dashed #ccc;padding:0 10px 8px;font-size: 16px;}
   .cq-hot-title i,.cq-tag-title i,.cq-guidang-title i {margin-right: 5px;}
   .cq-hot-list {padding-top: 8px;}
-  .cq-hot-list li {line-height: 30px;padding: 0 10px;cursor: pointer;transition: all 0.4s ease-in-out 0s;color: #666;}
+  .cq-hot-list li {line-height: 30px;padding: 0 10px;cursor: pointer;transition: all 0.4s ease-in-out 0s;color: #666;white-space: nowrap;overflow:hidden;text-overflow: ellipsis;}
   .cq-hot-list li:hover {background: #ccc}
 
   .cq-tags,.cq-guidang {background: rgba(255,255,255,1);border-radius: 5px;margin-top: 15px;padding: 10px;}

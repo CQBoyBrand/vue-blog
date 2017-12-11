@@ -36,6 +36,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+  ol, ul {list-style: none;}
   .cq-header {
     background: #f8f8f8;
     height: 60px;

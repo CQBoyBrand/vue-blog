@@ -53,7 +53,6 @@ export default {
     box-sizing: border-box;
   }
   img {display: block;border-style: none;}
-  ol, ul {list-style: none;}
   a {text-decoration: none;}
   .clearFix:after {
     content: '.';

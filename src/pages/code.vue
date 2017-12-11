@@ -3,7 +3,7 @@
     <ul class="cq-item-list">
       <router-link class="clearFix" :to="'/Detail/'+item.artId" :key="item.artId" tag="li" v-for="item in articleList">
         <div class="cq-leftImg">
-          <img src="../assets/backgroundImg.jpg" alt="item.artTitle"/>
+          <img :src="item.artThumb" alt="item.artTitle"/>
         </div>
         <div class="cq-right-content">
           <h4 class="item-title">{{item.artTitle}}</h4>
@@ -36,7 +36,11 @@
         this.$http.post(getArticleList,{artType: 'Code',pageNum: this.currentPage,pageRow: this.pageRow}).then((res) => {
           // success
           this.articleList = res.data.artList;
-          this.pageNo = Math.ceil(res.data.total / this.pageRow);
+          if(res.data.total == 0){
+            this.pageNo == 1
+          }else {
+            this.pageNo = Math.ceil(res.data.total / this.pageRow);
+          }
         }, (error) => {
           // error
           console.log(error)
@@ -57,7 +61,7 @@
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
+  ol, ul {list-style: none;}
   img {height: 100%;width: 100%;}
   .cq-item-list li {padding: 10px;background: rgba(255,255,255,1);border-radius: 5px;margin-bottom: 15px;cursor: pointer;transition: all 0.4s ease-in-out 0s;}
   .cq-leftImg, .cq-right-content {float: left;}

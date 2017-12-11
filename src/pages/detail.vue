@@ -5,7 +5,7 @@
       <span>发布时间：<i>{{articleDetail.artCdate}}</i></span><span>阅读：<i>{{articleDetail.readNum}}</i></span><span>评论：<i>0</i></span>
     </div>
     <div class="contBody">
-      <img style="width: 530px;height: 230px" :src="articleDetail.artThumb" alt="articleDetail.artTitle">
+      <img style="width: 530px;height: 230px;margin: 15px 0;" :src="articleDetail.artThumb" alt="articleDetail.artTitle">
       <div class="markdown-body" v-html="compiledMarkdown"></div>
     </div>
   </div>
@@ -36,7 +36,6 @@
     methods:{
       getArticledetail(){
         this.$http.post(getArticledetail, {"artId": this.$route.params.id}).then((res) => {
-          console.log(res)
           this.articleDetail = res.data.article[0];
         })
       }
@@ -58,7 +57,7 @@
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style lang="scss">
+<style lang="scss" scoped>
   @import "../../static/css/github-markdown.css";
   @import "../../static/css/atom-one-dark.min.css";
   .cq-art-detail {background: rgba(255,255,255,1);border-radius: 5px;padding: 15px; }
@@ -67,4 +66,5 @@
   .cq-art-info{color: #999;font-size: 12px;border: 1px dashed #ccc;padding: 8px 0;margin-top: 10px;}
   .cq-art-info span {padding: 0 10px;}
   .markdown-body img{margin: auto;}
+  ul{list-style:square!important;}
 </style>
